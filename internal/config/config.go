@@ -20,13 +20,14 @@ type Database struct {
 }
 
 type Config struct {
-	Host               string   `default:"0.0.0.0" required:"true" split_words:"true"`
-	Port               string   `default:"4003" required:"true" split_words:"true"`
-	Debug              bool     `default:"false"`
-	Database           Database `required:"true" split_words:"true"`
-	TransmissionApiUrl string   `required:"true" split_words:"true"`
-	TorrentApiUrl      string   `required:"true" split_words:"true"`
-	SubtitlerApiUrl    string   `required:"true" split_words:"true"`
+	Host                  string   `default:"0.0.0.0" required:"true" split_words:"true"`
+	Port                  string   `default:"4003" required:"true" split_words:"true"`
+	Debug                 bool     `default:"false"`
+	Database              Database `required:"true" split_words:"true"`
+	TransmissionApiUrl    string   `required:"true" split_words:"true"`
+	TorrentApiUrl         string   `required:"true" split_words:"true"`
+	SubtitlerApiUrl       string   `required:"true" split_words:"true"`
+	TorrentMetadataApiUrl string   `required:"true" split_words:"true"`
 }
 
 func New() *Config {

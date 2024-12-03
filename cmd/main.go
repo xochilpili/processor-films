@@ -17,6 +17,6 @@ func main() {
 	defer cancel()
 
 	processor := processor.New(config, logger)
-	processor.Process(ctx, models.POPULAR, "all") 
+	processor.Process(ctx, models.FESTIVALS, "all")
 
 }
