@@ -30,7 +30,7 @@ spec:
             value: "5432"
           - name: PF_DATABASE_NAME
             value: ingestion_films
-          - name: PF_DATABASE_USER
+          - name: PF_DATABASE_USERNAME
             value: xochilpili
           - name: PF_DATABASE_PASSWORD
             valueFrom:
