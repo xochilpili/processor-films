@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: processor-films
+  labels:
+    app: processor-films
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: processor-films
+  template:
+    metadata:
+      labels:
+        app: processor-films
+    spec:
+      containers:
+      - name: processor-films
+        image: registry.paranoids.us/processor-films:main
+        imagePullPolicy: Always
+        env:
+          - name: PF_HOST
+            value: 0.0.0.0
+          - name: PF_PORT
+            value: "4004"
+          - name: PF_DATABASE_HOST
+            value: 192.168.105.123
+          - name: PF_DATABASE_PORT
+            value: "5432"
+          - name: PF_DATABASE_NAME
+            value: ingestion_films
+          - name: PF_DATABASE_USER
+            value: xochilpili
+          - name: PF_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: processor-films-key
+                key: password
+          - name: PF_TRANSMISSION_API_URL
+            value: "http://192.168.105.105:9091"
+          - name: PF_TORRENT_API_URL
+            value: "https://api.paranoids.us/torrent-api/search"
+          - name: PF_TORRENT_METADATA_API_URL
+            value: "https://torrentmeta.fly.dev"
+          - name: PF_SUBTITLER_API_URL
+            value: "https://api.paranoids.us/subtitler-api/search/all/"
+        ports:
+        - containerPort: 4004
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: processor-films-svc
+spec:
+  selector:
+    app: processor-films
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4004

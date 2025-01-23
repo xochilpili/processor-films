@@ -184,10 +184,12 @@ func (p *Processor) matchSubtitles(torrents []models.Torrent, subs []models.Subt
 				}
 				return false
 			})
+
 			if resOk && qOk && gOk {
 				p.logger.Info().Msgf("perfect matched %s", torrent.Title)
 				return true
 			}
+			// partial match either a group, title or quality matches
 			if (resOk && qOk) || (resOk && gOk) || (qOk && gOk) {
 				p.logger.Warn().Msgf("partial match for %s, %t, %t, %t", torrent.Title, resOk, qOk, gOk)
 				partialMatch = true
